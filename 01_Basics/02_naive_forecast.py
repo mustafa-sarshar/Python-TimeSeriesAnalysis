@@ -1,12 +1,11 @@
 """
-Time Series Transformation by using Boxcox
+Naive Forecast
 """
 # In[] Libs
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import MinMaxScaler
-from scipy.stats import boxcox
+from utils import metrics
 
 # In[] Datasets
 _dataset_dir = "GaitData"
@@ -22,17 +21,20 @@ plt.legend(_cols_to_plot)
 plt.show()
 
 # In[] Data Analysis
-scaler = MinMaxScaler(feature_range=(0.01, 1.01)) # Data must contain only positive values, therefore we scale the data from 0.01 to 1.01.
 _cols_to_workon = "Gyr_Z"
-df[_cols_to_workon+"_scaled"] = scaler.fit_transform(X=df[_cols_to_workon].values.reshape(-1, 1)) 
-data, lam = boxcox(df[_cols_to_workon+"_scaled"]) 
-df[_cols_to_workon+"_boxcox"] = data
+df[_cols_to_workon+"_naive_forecast"] = df[_cols_to_workon].shif(1)
+y_true = df.iloc[1:][_cols_to_workon]
+y_pred = df.iloc[1:][_cols_to_workon+"_naive_forecast"]
 
-# In[] Plot the Boxcox
+# In[] Plot the results
 _cols_to_plot = [_cols_to_workon+"_scaled", _cols_to_workon+"_boxcox"]
-plt.clf()
-plt.plot(df[_cols_to_plot])
-plt.legend(_cols_to_plot)
+fig, axes = plt.subplots(3, 1)
+axes[0].plot(df[_cols_to_plot])
+axes[0].legend(_cols_to_plot)
+axes[1].hist(df[_cols_to_plot[0]])
+axes[1].legend([_cols_to_workon+"_scaled"+"_hist"])
+axes[2].hist(df[_cols_to_plot[1]], label=_cols_to_workon+"_boxcox"+"_hist")
+axes[2].legend([_cols_to_workon+"_boxcox"+"_hist"])
 plt.show()
 
 # In[]

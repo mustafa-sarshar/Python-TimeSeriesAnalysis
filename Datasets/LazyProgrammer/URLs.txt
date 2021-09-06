@@ -1,0 +1,2 @@
+https://lazyprogrammer.me/course_files/airline_passengers.csv
+https://lazyprogrammer.me/course_files/SPY.csv
