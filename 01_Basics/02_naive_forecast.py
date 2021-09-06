@@ -2,10 +2,9 @@
 Naive Forecast
 """
 # In[] Libs
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from utils import metrics
+from utils import metrics as met
 
 # In[] Datasets
 _dataset_dir = "GaitData"
@@ -22,19 +21,22 @@ plt.show()
 
 # In[] Data Analysis
 _cols_to_workon = "Gyr_Z"
-df[_cols_to_workon+"_naive_forecast"] = df[_cols_to_workon].shif(1)
+df[_cols_to_workon+"_naive_forecast"] = df[_cols_to_workon].shift(1)
 y_true = df.iloc[1:][_cols_to_workon]
 y_pred = df.iloc[1:][_cols_to_workon+"_naive_forecast"]
 
 # In[] Plot the results
-_cols_to_plot = [_cols_to_workon+"_scaled", _cols_to_workon+"_boxcox"]
-fig, axes = plt.subplots(3, 1)
-axes[0].plot(df[_cols_to_plot])
-axes[0].legend(_cols_to_plot)
-axes[1].hist(df[_cols_to_plot[0]])
-axes[1].legend([_cols_to_workon+"_scaled"+"_hist"])
-axes[2].hist(df[_cols_to_plot[1]], label=_cols_to_workon+"_boxcox"+"_hist")
-axes[2].legend([_cols_to_workon+"_boxcox"+"_hist"])
+_cols_to_plot = [_cols_to_workon, _cols_to_workon+"_naive_forecast"]
+plt.plot(df[_cols_to_plot])
+plt.legend(_cols_to_plot)
 plt.show()
 
-# In[]
+# In[] Calculate the metrics
+print("SSE: {:0.2f}".format(met.metrics_sse(y_true, y_pred)))
+print("MSE: {:0.2f}".format(met.metrics_mse(y_true, y_pred)))
+print("RMSE: {:0.2f}".format(met.metrics_rmse(y_true, y_pred)))
+print("MAE: {:0.2f}".format(met.metrics_mae(y_true, y_pred)))
+print("MAPE: {:0.2f}".format(met.metrics_mape(y_true, y_pred)))
+print("SMAPE: {:0.2f}".format(met.metrics_smape(y_true, y_pred)))
+print("R2 Score: {:0.2f}".format(met.metrics_r2_score(y_true, y_pred)))
+

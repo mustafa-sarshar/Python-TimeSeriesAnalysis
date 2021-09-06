@@ -21,8 +21,8 @@ def metrics_mae(y_true, y_pred):
     return mean_absolute_error(y_true, y_pred)
 
 def metrics_mape(y_true, y_pred):
-    from sklearn.metrics import mean_absolute_percentage_error
-    return mean_absolute_percentage_error(y_true, y_pred)
+    import numpy as np
+    return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
 
 def metrics_smape(y_true, y_pred):
     import numpy as np
