@@ -20,13 +20,13 @@ plt.legend(_cols_to_plot)
 plt.show()
 
 # In[] Data Analysis
-_cols_to_workon = "Gyr_Z"
-df[_cols_to_workon+"_naive_forecast"] = df[_cols_to_workon].shift(1)
-y_true = df.iloc[1:][_cols_to_workon]
-y_pred = df.iloc[1:][_cols_to_workon+"_naive_forecast"]
+_col_to_workon = "Gyr_Z"
+df[_col_to_workon+"_naive_forecast"] = df[_col_to_workon].shift(1)
+y_true = df.iloc[1:][_col_to_workon]
+y_pred = df.iloc[1:][_col_to_workon+"_naive_forecast"]
 
 # In[] Plot the results
-_cols_to_plot = [_cols_to_workon, _cols_to_workon+"_naive_forecast"]
+_cols_to_plot = [_col_to_workon, _col_to_workon+"_naive_forecast"]
 plt.plot(df[_cols_to_plot])
 plt.legend(_cols_to_plot)
 plt.show()
@@ -40,3 +40,4 @@ print("MAPE: {:0.2f}".format(met.metrics_mape(y_true, y_pred)))
 print("SMAPE: {:0.2f}".format(met.metrics_smape(y_true, y_pred)))
 print("R2 Score: {:0.2f}".format(met.metrics_r2_score(y_true, y_pred)))
 
+# In[] Finish
