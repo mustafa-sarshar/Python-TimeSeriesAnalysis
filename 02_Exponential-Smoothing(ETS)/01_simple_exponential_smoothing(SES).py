@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 # In[] Datasets
 _dataset_dir = "GaitData"
-_dataset_file = "01_LeftAnkle.csv"
-df = pd.read_csv(f"..\\Datasets\\{_dataset_dir}\\{_dataset_file}", skiprows=12)
+_dataset_file = "02_LeftAnkle.csv"
+df = pd.read_csv(f"..\\datasets\\{_dataset_dir}\\{_dataset_file}", skiprows=12)
 df.drop(columns=["PacketCounter", "StatusWord", "ClippingFlags", "RSSI"], inplace=True)
 
 # In[] Plot the dataset
@@ -49,12 +49,22 @@ plt.title(f"Rolling method applied on {_col_to_workon} signal from gait data")
 plt.show()
 
 # In[] Other metrics
-_cols_to_analyse = ["Gyr_Z", "FreeAcc_U"]
+_cols_to_analyse = ["Gyr_Z", "FreeAcc_U", "Mat[1][1]"]
 df_rolling_cov = df[_cols_to_analyse].copy().dropna().rolling(_windows_size).cov()
 df_rolling_corr = df[_cols_to_analyse].copy().dropna().rolling(_windows_size).corr()
 
 # In[] Plot the results
-df_rolling_cov.loc[("Gyr_Z", slice(None))]
-df["Gyr_Z"].plot()
+indexes_1st_param = range(0, len(df_rolling_cov), 3)
+indexes_2nd_param = range(1, len(df_rolling_cov), 3)
+indexes_3rd_param = range(2, len(df_rolling_cov), 3)
 
-# In[] Finish
+plt.clf()
+# plt.plot(df[_col_to_workon], label=_col_to_workon)
+# plt.plot(df["FreeAcc_U"], label="FreeAcc_U")
+plt.plot(df_rolling_cov.iloc[indexes_1st_param]["Gyr_Z"].values, label="Gyr_Z_cov")
+plt.plot(df_rolling_cov.iloc[indexes_2nd_param]["FreeAcc_U"].values, label="FreeAcc_U_cov")
+plt.plot(df_rolling_cov.iloc[indexes_3rd_param]["Mat[1][1]"].values, label="Mat[1][1]_cov")
+# plt.plot((df["FreeAcc_U"]**2 + df["Gyr_Z"]**2)**0.5 , label="FreeAccU*GyrZ")
+
+plt.legend()
+plt.show()
