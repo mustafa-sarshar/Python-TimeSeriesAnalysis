@@ -8,3 +8,4 @@ To achieve our **Goals**, we employed the knowledge that we gained from differen
 1. LazyProgrammer - Time Series Analysis, Forecasting, and Machine Learning (Udemy) [see the course](https://www.udemy.com/share/104I9M3@hh4fQRKXj2j5JhjmQwdnTHJIPmTzd2JGLjX-sm8bRWolmpJLpFW62EDA7C-dXkWx/)
     - **Basics**
         1. Box-Cox power transformation [Extra Reading](https://arxiv.org/ftp/arxiv/papers/1401/1401.3812.pdf)
+        2. Naive Forecast
