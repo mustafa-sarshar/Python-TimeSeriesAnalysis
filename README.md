@@ -10,4 +10,5 @@ To achieve our **Goals**, we employed the knowledge that we gained from differen
         1. Box-Cox power transformation (extra reading [here](https://arxiv.org/ftp/arxiv/papers/1401/1401.3812.pdf))
         2. Naive Forecast
     - **Exponential-Smoothing(ETS)**
-        1. Simple Exponential Smoothing
+        1. Simple Exponential Smoothing (SES)
+        2. Exponential weighted Smoothing (EWS)
