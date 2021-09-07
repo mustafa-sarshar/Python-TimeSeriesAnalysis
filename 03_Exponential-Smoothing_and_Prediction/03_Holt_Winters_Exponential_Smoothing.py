@@ -5,7 +5,7 @@ Holt-Winter - Exponential Smoothing
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from statsmodels.tsa.holtwinters import Holt
+from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
 # In[] Datasets
 _dataset_dir = "GaitData"
@@ -26,17 +26,23 @@ df["Gyr_mag"] = (df["Gyr_X"]**2 + df["Gyr_Y"]**2 + df["Gyr_Z"]**2)**.5
 
 # In[] Data Analysis - Smoothing and Fitting
 _col_to_workon = "Gyr_Z"
-holt = Holt(endog=df[_col_to_workon], initialization_method="legacy-heuristic").fit()
+holt_ES = ExponentialSmoothing(
+    endog=df[_col_to_workon],
+    initialization_method="legacy-heuristic",
+    trend="add",
+    seasonal="add",
+    seasonal_periods=100
+).fit()
 
-df[_col_to_workon+"_holt"] = holt.predict(start=df[_col_to_workon].index[0], end=df[_col_to_workon].index[-1])
+df[_col_to_workon+"_ES"] = holt_ES.predict(start=df[_col_to_workon].index[0], end=df[_col_to_workon].index[-1])
 
-if np.allclose(df[_col_to_workon+"_holt"], holt.fittedvalues):
+if np.allclose(df[_col_to_workon+"_ES"], holt_ES.fittedvalues):
     print("Predicted values are close.")
 else:
     print("Predicted values are NOT close.")
 
 # In[] Plot the results all together
-_cols_to_plot = [_col_to_workon, _col_to_workon+"_holt"]
+_cols_to_plot = [_col_to_workon, _col_to_workon+"_ES"]
 plt.clf()
 plt.plot(df[_cols_to_plot])
 plt.legend(_cols_to_plot)
@@ -49,19 +55,25 @@ _n_test = len(df) - _n_cutoff
 df_train = df[_col_to_workon].iloc[:_n_cutoff]
 df_test = df[_col_to_workon].iloc[_n_cutoff:]
 
-holt_2 = Holt(endog=df_train, initialization_method="legacy-heuristic").fit() # The alpha parameter with be set automatically.
+holt_ES_2 = ExponentialSmoothing(
+    endog=df[_col_to_workon],
+    initialization_method="legacy-heuristic",
+    trend="add",
+    seasonal="add",
+    seasonal_periods=100
+).fit()
 
-df.loc[:_n_cutoff-1, _col_to_workon+"Holt_fitted"] = holt_2.fittedvalues[:_n_cutoff].values
-df.loc[_n_cutoff:, _col_to_workon+"Holt_fitted"] = holt_2.forecast(_n_test).values
+df.loc[:_n_cutoff-1, _col_to_workon+"ES_fitted"] = holt_ES_2.fittedvalues[:_n_cutoff].values
+df.loc[_n_cutoff:, _col_to_workon+"ES_fitted"] = holt_ES_2.forecast(_n_test).values
 
 # In[] Plot the predictions
-_cols_to_plot = [_col_to_workon, _col_to_workon+"Holt_fitted"]
+_cols_to_plot = [_col_to_workon, _col_to_workon+"ES_fitted"]
 plt.clf()
 plt.plot(df[_cols_to_plot])
 plt.legend(_cols_to_plot)
 plt.show()
 
 # Print the results
-for k, val in zip(holt_2.params.keys(), holt_2.params.values()):
+for k, val in zip(holt_ES_2.params.keys(), holt_ES_2.params.values()):
     print(f"{k}: {val}")
 
