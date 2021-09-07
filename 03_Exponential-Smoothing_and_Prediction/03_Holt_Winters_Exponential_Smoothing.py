@@ -1,5 +1,5 @@
 """
-Holt-Winter - Holt Linear Trend Model
+Holt-Winter - Exponential Smoothing
 """
 # In[] Libs
 import numpy as np
