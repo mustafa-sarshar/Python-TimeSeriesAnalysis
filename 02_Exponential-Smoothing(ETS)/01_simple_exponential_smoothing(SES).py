@@ -18,6 +18,10 @@ plt.plot(df[_cols_to_plot])
 plt.legend(_cols_to_plot)
 plt.show()
 
+# In[] Add new Params
+df["FreeAcc_mag"] = (df["FreeAcc_E"]**2 + df["FreeAcc_N"]**2 + df["FreeAcc_U"]**2)**.5
+df["Gyr_mag"] = (df["Gyr_X"]**2 + df["Gyr_Y"]**2 + df["Gyr_Z"]**2)**.5
+
 # In[] Data Analysis
 _col_to_workon = "Gyr_Z"
 _windows_size = 10
@@ -49,22 +53,30 @@ plt.title(f"Rolling method applied on {_col_to_workon} signal from gait data")
 plt.show()
 
 # In[] Other metrics
-_cols_to_analyse = ["Gyr_Z", "FreeAcc_U", "Mat[1][1]"]
+_cols_to_analyse = ["Gyr_Z", "FreeAcc_U"]
 df_rolling_cov = df[_cols_to_analyse].copy().dropna().rolling(_windows_size).cov()
-df_rolling_corr = df[_cols_to_analyse].copy().dropna().rolling(_windows_size).corr()
 
 # In[] Plot the results
-indexes_1st_param = range(0, len(df_rolling_cov), 3)
-indexes_2nd_param = range(1, len(df_rolling_cov), 3)
-indexes_3rd_param = range(2, len(df_rolling_cov), 3)
+_indexes = range(1, len(df_rolling_cov), 2)
 
 plt.clf()
-# plt.plot(df[_col_to_workon], label=_col_to_workon)
-# plt.plot(df["FreeAcc_U"], label="FreeAcc_U")
-plt.plot(df_rolling_cov.iloc[indexes_1st_param]["Gyr_Z"].values, label="Gyr_Z_cov")
-plt.plot(df_rolling_cov.iloc[indexes_2nd_param]["FreeAcc_U"].values, label="FreeAcc_U_cov")
-plt.plot(df_rolling_cov.iloc[indexes_3rd_param]["Mat[1][1]"].values, label="Mat[1][1]_cov")
-# plt.plot((df["FreeAcc_U"]**2 + df["Gyr_Z"]**2)**0.5 , label="FreeAccU*GyrZ")
-
+plt.plot(df[_col_to_workon], label=_col_to_workon)
+plt.plot(df["FreeAcc_U"], label="FreeAcc_U")
+plt.plot(df_rolling_cov.iloc[_indexes]["Gyr_Z"].values, label="cov_results")
 plt.legend()
 plt.show()
+
+# In[] Other Params
+_cols_to_analyse = ["FreeAcc_mag", "Gyr_mag"]
+df_rolling_cov_mag = df[_cols_to_analyse].copy().dropna().rolling(_windows_size).cov()
+
+# In[]
+_indexes = range(1, len(df_rolling_cov_mag), 2)
+plt.clf()
+plt.plot(df["Gyr_Z"], label="Gyr_Z")
+plt.plot(df["Gyr_mag"], label="Gyr_mag")
+plt.plot(df["FreeAcc_mag"], label="FreeAcc_mag")
+plt.plot(df_rolling_cov_mag.iloc[_indexes]["FreeAcc_mag"].values, label="cov_results")
+plt.legend()
+plt.show()
+
