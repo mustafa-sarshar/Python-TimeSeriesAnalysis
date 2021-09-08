@@ -100,9 +100,10 @@ seasonal_type = "add"
 damped_trend = False
 init_method = "legacy-heuristic"
 use_boxcox = 0
+seasonal_periods = 10
 
 # In[] Test it for one manually given settings
-walk_forward(dataframe, test_length, steps, trend_type, seasonal_type, damped_trend, init_method, use_boxcox, debug=True)
+walk_forward(dataframe, test_length, steps, trend_type, seasonal_type, damped_trend, init_method, use_boxcox, seasonal_periods, debug=True)
 
 # In[] Test the model for different hyperparameters
 trend_type_list = ["add", "mul"]
