@@ -2,10 +2,8 @@
 Augmented Dickey-Fuller Test (ADF Test)
 """
 # In[] Libs
-import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.signal import chirp
 from statsmodels.tsa.stattools import adfuller
 
 # In[] define custom methods
