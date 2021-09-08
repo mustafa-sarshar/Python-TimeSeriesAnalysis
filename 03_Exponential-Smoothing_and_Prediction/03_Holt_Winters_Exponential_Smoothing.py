@@ -49,7 +49,7 @@ plt.legend(_cols_to_plot)
 plt.show()
 
 # In[] Train and Test the model by splitting the data set into Train and Test sets
-_train_test_ratio = 0.8 # equal to 80%
+_train_test_ratio = 0.8 # equals to 80%
 _n_cutoff = int(len(df) * _train_test_ratio)
 _n_test = len(df) - _n_cutoff
 df_train = df[_col_to_workon].iloc[:_n_cutoff]
