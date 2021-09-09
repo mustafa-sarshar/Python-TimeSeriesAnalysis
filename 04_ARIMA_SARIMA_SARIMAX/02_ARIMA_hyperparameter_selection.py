@@ -47,7 +47,7 @@ def set_d_value(data, alpha_level=0.05):
 # In[] Datasets
 _dataset_dir = "GaitData"
 _dataset_file = "02_RightAnkle.csv"
-df_stationary = pd.read_csv(f"..\\datasets\\{_dataset_dir}\\{_dataset_file}", skiprows=12)[1200:2300]
+df_stationary = pd.read_csv(f"..\\datasets\\{_dataset_dir}\\{_dataset_file}", skiprows=12)[1200:2300].reset_index()
 
 _dataset_dir = "StockData"
 _dataset_file = "airline_passengers.csv"

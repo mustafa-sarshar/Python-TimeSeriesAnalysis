@@ -16,10 +16,12 @@ To achieve our **Goals**, we employed the knowledge that we gained from differen
         1. Holt-Winters - Simple Exponential Smoothing (HW-SES)
         2. Holt-Winters - Holt's Linear Trend Model
         3. Holt-Winters - Exponential Smoothing
-    - **ARIMA - SARIMA - SARIMAX**
-        1. AutoRegressive Integrated Moving Average (ARIMA)
+    - **AutoRegressive Integrated Moving Average (ARIMA)**
+        1. ARIMA
         2. Hyperparameters Selection for ARIMA
         3. Auto ARIMA
+    - **Vector AutoRegressive Moving Averages (VAR, VMA, VARMA)**
+        1. VARMA
     - **Extras**
         1. Walk Forward Validation
         2. Stationarity Test
