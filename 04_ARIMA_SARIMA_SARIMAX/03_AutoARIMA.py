@@ -4,7 +4,8 @@ Probabilistic Model Selection
     Bayesian Information Criterion (BIC). Derived from Bayesian probability.
     Minimum Description Length (MDL). Derived from information theory.
     
-Resource: https://machinelearningmastery.com/probabilistic-model-selection-measures/
+Resource: 
+    https://machinelearningmastery.com/probabilistic-model-selection-measures/
 """
 
 # In[] Libs
