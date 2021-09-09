@@ -20,8 +20,8 @@ To achieve our **Goals**, we employed the knowledge that we gained from differen
         1. AutoRegressive Integrated Moving Average (ARIMA)
         2. Hyperparameters Selection for ARIMA
         3. Auto ARIMA
-    - **TempFiles**
-        * Some temporary files for testing codes.
     - **Extras**
         1. Walk Forward Validation
         2. Stationarity Test
+    - **TempFiles**
+        * Some temporary files for testing codes.
