@@ -22,9 +22,11 @@ plt.plot(df[_cols_to_plot])
 plt.legend(_cols_to_plot)
 plt.show()
 
-# In[]
+# In[] Plot the PACF and ACF functions to determine p and q hyperparameters
 _col_to_workon = "Gyr_Z"
 fig, axes = plt.subplots(2, 1)
 plot_pacf(x=df[_col_to_workon], ax=axes[0])
 plot_acf(x=df[_col_to_workon], ax=axes[1])
 plt.show()
+
+# In[] Finish

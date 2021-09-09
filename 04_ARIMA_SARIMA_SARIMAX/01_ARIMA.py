@@ -1,5 +1,5 @@
 """
-AutoRegressive Integrated Moving Average ARIMA
+AutoRegressive Integrated Moving Average (ARIMA)
 ARIMA(p, d, q)
     p: referes to the autoregressive part - AR(p)
     q: referes to the moving average part - MA(q)
