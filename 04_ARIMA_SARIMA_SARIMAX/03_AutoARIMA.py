@@ -12,7 +12,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from pmdarima import auto_arima as AARIMA
-from utils.custom_functions import plot_the_predictions, plot_prediction_AutoARIMA
+from utils.custom_functions import plot_the_predictions, plot_AutoARIMA
 
 # In[] Datasets
 _dataset_dir = "GaitData"
@@ -59,6 +59,6 @@ plt.show()
 plot_the_predictions(df_main=df_test.values, df_pred=test_pred, conf_int=confint)
 
 # In[] Plot the whole data + the predictions
-plot_prediction_AutoARIMA(model=arima_model, df_main=df[_col_to_workon], df_test=df_test)
+plot_AutoARIMA(model=arima_model, df_main=df[_col_to_workon], df_test=df_test)
 
 # In[] Finish
