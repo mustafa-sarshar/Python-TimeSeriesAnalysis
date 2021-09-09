@@ -11,7 +11,7 @@ Resource: https://machinelearningmastery.com/probabilistic-model-selection-measu
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-from pmdarima import auto_arima as AARIMA
+from pmdarima.arima import auto_arima as AARIMA
 from utils.custom_functions import plot_the_predictions, plot_AutoARIMA
 
 # In[] Datasets
