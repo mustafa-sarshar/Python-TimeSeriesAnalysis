@@ -1,19 +1,15 @@
 """
-VARMAX(p, q)
-VAR(p) 
+Vector Autoregressive Moving Average with eXogenous regressors model = VARMAX(p, q)
 """
 # In[] Libs
 import pandas as pd
-import numpy as np
-import statsmodels.api as sm
 import matplotlib.pyplot as plt
+import numpy as np
 
 from datetime import datetime
-from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 from statsmodels.tsa.statespace.varmax import VARMAX
-from statsmodels.tsa.api import VAR
-from sklearn.metrics import r2_score
 from sklearn.preprocessing import MaxAbsScaler
+from statsmodels.graphics.tsaplots import plot_pacf, plot_acf
 
 # In[] Datasets
 _dataset_dir = "GaitData"
@@ -45,6 +41,9 @@ df_LA["Gyr_mag"] = (df_LA["Gyr_X"]**2 + df_LA["Gyr_Y"]**2 + df_LA["Gyr_Z"]**2)**
 _col_to_workon = "Gyr_Z"
 df_joined = pd.concat((df_RA[_col_to_workon], df_LA[_col_to_workon]), axis=1)
 df_joined.columns = [_col_to_workon+"_RA", _col_to_workon+"_LA"]
+df_joined["timeframe(ms)"] = np.linspace(start=0, stop=len(df_joined)-1, num=len(df_joined), dtype=np.int16)
+df_joined.set_index(df_joined["timeframe(ms)"], inplace=True)
+df_joined.drop(["timeframe(ms)"], axis=1, inplace=True)
 df_joined.index.freq = "ms"
 _train_test_ratio = 0.7 # equals to 70%
 _n_cutoff = int(len(df_joined) * _train_test_ratio)
@@ -72,8 +71,14 @@ df_joined.loc[test_index, _col_to_workon+"_LA_scaled"] = test_set[_col_to_workon
 # In[] Fit the model
 _cols_to_workon = [_col_to_workon+"_RA_scaled", _col_to_workon+"_LA_scaled"]
 
+# Plot PACF ACF to determine the value of p and q
+fig, axes = plt.subplots(2, 1)
+plot_pacf(x=train_set[_cols_to_workon[0]], ax=axes[0]) # to determine the value of p
+plot_acf(x=train_set[_cols_to_workon[0]], ax=axes[1]) # to determine the value of q
+plt.show()
+
 _time_start = datetime.now()
-model = VARMAX(endog=train_set[_cols_to_workon]).fit(maxiter=100)
+model = VARMAX(endog=train_set[_cols_to_workon], order=(1, 1)).fit(maxiter=100)
 print(f"Duration: {datetime.now() - _time_start}")
 
 # In[] Plot the results
