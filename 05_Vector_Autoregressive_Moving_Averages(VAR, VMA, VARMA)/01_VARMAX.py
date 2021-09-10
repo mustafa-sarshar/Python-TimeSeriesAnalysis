@@ -67,7 +67,6 @@ df_joined.loc[train_index, _col_to_workon+"_LA_scaled"] = train_set[_col_to_work
 df_joined.loc[test_index, _col_to_workon+"_RA_scaled"] = test_set[_col_to_workon+"_RA_scaled"]
 df_joined.loc[test_index, _col_to_workon+"_LA_scaled"] = test_set[_col_to_workon+"_LA_scaled"]
 
-
 # In[] Fit the model
 _cols_to_workon = [_col_to_workon+"_RA_scaled", _col_to_workon+"_LA_scaled"]
 
