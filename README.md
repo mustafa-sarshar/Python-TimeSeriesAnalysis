@@ -1,4 +1,4 @@
-# Time-Series-Analysis_Tutorial-with-Examples
+# Time Series Analysis - Tutorial with Examples
 Times series analysis by using statsmodels, scipy and tensorflow
 
 This Repository aims to teach the most common and useful methods and algorithms used in Time Series Analysis.
